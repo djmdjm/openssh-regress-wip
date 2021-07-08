@@ -85,7 +85,8 @@ LTESTS= 	connect \
 		authinfo \
 		sshsig \
 		keygen-comment \
-		knownhosts-command
+		knownhosts-command \
+		agent-restrict
 
 INTEROP_TESTS=	putty-transfer putty-ciphers putty-kex conch-ciphers
 #INTEROP_TESTS+=ssh-com ssh-com-client ssh-com-keygen ssh-com-sftp
