@@ -318,33 +318,33 @@ receive_packet(int fd, const char *dev, struct arena *arena,
 	return 0;
 }
 
-/* Dequeue as many packets as are due to be sent and send them */
+/* Send a packet and dequeue it */
 static int
 send_packets(int fd, const char *dev, struct arena *arena, struct timespec *now)
 {
 	struct packet *packet;
 	ssize_t r;
 
-	while ((packet = arena_packet_first(arena)) != NULL) {
-		if (timespeccmp(&packet->due, now, >))
-			break;
+	/* NB. this previously used a loop, but that caused read starvation */
+	if ((packet = arena_packet_first(arena)) == NULL ||
+	    timespeccmp(&packet->due, now, >))
+		return 0;
 
-		debug2_f("%s: send len %zu id %llu "
-		    "(queue: %llu pkts %zu bytes)", dev, packet->l, packet->id,
-		    arena->active_packets, arena->active_bytes);
-		if ((r = write(fd, packet->d, packet->l)) == -1) {
-			if (errno == EINTR || errno == EAGAIN ||
-			    errno == EWOULDBLOCK)
-				continue;
-			error_f("%s write: %s", dev, strerror(errno));
-			return -1;
-		}
-		if (r == 0) {
-			logit("%s: output closed", dev);
-			return -1;
-		}
-		arena_packet_done(arena, packet);
+	debug2_f("%s: send len %zu id %llu "
+	    "(queue: %llu pkts %zu bytes)", dev, packet->l, packet->id,
+	    arena->active_packets, arena->active_bytes);
+	if ((r = write(fd, packet->d, packet->l)) == -1) {
+		if (errno == EINTR || errno == EAGAIN ||
+		    errno == EWOULDBLOCK)
+			return 0;
+		error_f("%s write: %s", dev, strerror(errno));
+		return -1;
 	}
+	if (r == 0) {
+		logit("%s: output closed", dev);
+		return -1;
+	}
+	arena_packet_done(arena, packet);
 	return 0;
 }
 
@@ -543,7 +543,7 @@ main(int argc, char **argv)
 	sigemptyset(&sigmask);
 	sigprocmask(SIG_SETMASK, &sigmask, NULL);
 
-	while ((ch = getopt(argc, argv, "DhvqP:c:d:s:")) != -1) {
+	while ((ch = getopt(argc, argv, "DhvqP:c:d:S:")) != -1) {
 		switch (ch) {
 		case 'D':
 			daemon_flag = 1;
@@ -570,7 +570,7 @@ main(int argc, char **argv)
 			if (errstr != NULL)
 				fatal("invalid -c argument: %s", errstr);
 			break;
-		case 's':
+		case 'S':
 			stats_interval_secs = strtonum(optarg, 0,
 			    INT_MAX / 1000, &errstr);
 			if (errstr != NULL)
@@ -583,7 +583,7 @@ main(int argc, char **argv)
 	argc -= optind;
 	argv += optind;
 
-	if (argc < 2)
+	if (argc != 2)
 		usage();
 
 	log_init(__progname, log_level, SYSLOG_FACILITY_USER, 1);
