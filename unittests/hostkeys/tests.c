@@ -5,6 +5,10 @@
  * Placed in the public domain
  */
 
+#include <stdio.h>
+
+#include "test_helper.h"
+
 void tests(void);
 void test_iterate(void); /* test_iterate.c */
 
@@ -14,3 +18,8 @@ tests(void)
 	test_iterate();
 }
 
+void
+benchmarks(void)
+{
+	printf("no benchmarks\n");
+}

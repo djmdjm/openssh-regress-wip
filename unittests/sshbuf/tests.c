@@ -5,6 +5,8 @@
  * Placed in the public domain
  */
 
+#include <stdio.h>
+
 #include "test_helper.h"
 
 void sshbuf_tests(void);
@@ -25,4 +27,10 @@ tests(void)
 	sshbuf_fuzz_tests();
 	sshbuf_getput_fuzz_tests();
 	sshbuf_fixed();
+}
+
+void
+benchmarks(void)
+{
+	printf("no benchmarks\n");
 }

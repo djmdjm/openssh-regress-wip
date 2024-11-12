@@ -47,3 +47,9 @@ tests(void)
 	ASSERT_INT_EQ(convtime("1000000000000000000000w"), -1);
 	TEST_DONE();
 }
+
+void
+benchmarks(void)
+{
+	printf("no benchmarks\n");
+}

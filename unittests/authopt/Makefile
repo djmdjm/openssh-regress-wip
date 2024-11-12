@@ -22,6 +22,6 @@ SRCS+=utf8.c
 REGRESS_TARGETS=run-regress-${PROG}
 
 run-regress-${PROG}: ${PROG}
-	env ${TEST_ENV} ./${PROG} -d ${.CURDIR}/testdata
+	env ${TEST_ENV} ./${PROG} ${UNITTEST_ARGS} -d ${.CURDIR}/testdata
 
 .include <bsd.regress.mk>

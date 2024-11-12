@@ -124,3 +124,9 @@ tests(void)
 	sshbuf_free(msg);
 	free(namespace);
 }
+
+void
+benchmarks(void)
+{
+	printf("no benchmarks\n");
+}
