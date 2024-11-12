@@ -35,3 +35,9 @@ tests(void)
 	test_hpdelim();
 	test_ptimeout();
 }
+
+void
+benchmarks(void)
+{
+	printf("no benchmarks\n");
+}

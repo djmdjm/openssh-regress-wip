@@ -125,3 +125,9 @@ tests(void)
  * int      addr_match_cidr_list(const char *, const char *);
  */
 }
+
+void
+benchmarks(void)
+{
+	printf("no benchmarks\n");
+}

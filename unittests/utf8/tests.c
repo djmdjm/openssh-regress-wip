@@ -98,3 +98,9 @@ tests(void)
 	one(0, "double_fit", "a\343\201\201", 7, 5, -1, "a\\343");
 	one(0, "double_spc", "a\343\201\201", 13, 13, 13, "a\\343\\201\\201");
 }
+
+void
+benchmarks(void)
+{
+	printf("no benchmarks\n");
+}

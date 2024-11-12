@@ -16,3 +16,10 @@ tests(void)
 	kex_proposal_tests();
 	kex_proposal_populate_tests();
 }
+
+void
+benchmarks(void)
+{
+	printf("\n");
+	kex_tests();
+}

@@ -12,6 +12,7 @@
 void sshkey_tests(void);
 void sshkey_file_tests(void);
 void sshkey_fuzz_tests(void);
+void sshkey_benchmarks(void);
 
 void
 tests(void)
@@ -22,4 +23,11 @@ tests(void)
 	sshkey_tests();
 	sshkey_file_tests();
 	sshkey_fuzz_tests();
+}
+
+void
+benchmarks(void)
+{
+	printf("\n");
+	sshkey_benchmarks();
 }

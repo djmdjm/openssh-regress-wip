@@ -572,3 +572,9 @@ tests(void)
 	test_cert_parse();
 	test_merge();
 }
+
+void
+benchmarks(void)
+{
+	printf("no benchmarks\n");
+}

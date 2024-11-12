@@ -11,6 +11,6 @@ SRCS+=match.c addr.c addrmatch.c
 REGRESS_TARGETS=run-regress-${PROG}
 
 run-regress-${PROG}: ${PROG}
-	env ${TEST_ENV} ./${PROG}
+	env ${TEST_ENV} ./${PROG} ${UNITTEST_ARGS}
 
 .include <bsd.regress.mk>
