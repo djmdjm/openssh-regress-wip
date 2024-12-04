@@ -23,6 +23,7 @@ void test_argv(void);
 void test_strdelim(void);
 void test_hpdelim(void);
 void test_ptimeout(void);
+void test_log_ratelimit(void);
 
 void
 tests(void)
@@ -34,4 +35,5 @@ tests(void)
 	test_strdelim();
 	test_hpdelim();
 	test_ptimeout();
+	test_log_ratelimit();
 }
