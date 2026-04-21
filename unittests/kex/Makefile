@@ -12,6 +12,7 @@ SRCS+=addr.c addrmatch.c bitmap.c packet.c dispatch.c canohost.c ssh_api.c
 SRCS+=compat.c
 SRCS+=cipher-chachapoly.c chacha.c poly1305.c ssh-ecdsa-sk.c ssh-sk.c
 SRCS+=ssh-ed25519-sk.c sk-usbhid.c ssh-pkcs11-client.c ssherr-libcrypto.c
+SRCS+=libcrux-mlkem-mldsa.c ssh-mldsa-eddsa.c
 
 SRCS+=	kex.c
 SRCS+=	kex-names.c

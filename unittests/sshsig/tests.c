@@ -103,6 +103,10 @@ tests(void)
 	check_sig("ed25519.pub", "ed25519.sig", msg, namespace);
 	TEST_DONE();
 
+	TEST_START("check MLDSA44-ED25519 signature");
+	check_sig("mldsa44-ed25519.pub", "mldsa44-ed25519.sig", msg, namespace);
+	TEST_DONE();
+
 	TEST_START("check ECDSA-SK signature");
 	check_sig("ecdsa_sk.pub", "ecdsa_sk.sig", msg, namespace);
 	TEST_DONE();

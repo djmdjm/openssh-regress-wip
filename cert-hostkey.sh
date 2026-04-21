@@ -70,7 +70,18 @@ touch $OBJ/host_revoked_plain
 touch $OBJ/host_revoked_cert
 cat $OBJ/host_ca_key.pub $OBJ/host_ca_key2.pub > $OBJ/host_revoked_ca
 
-PLAIN_TYPES=`echo "$SSH_KEYTYPES" | sed 's/^ssh-//'`
+PLAIN_TYPES=""
+for i in $SSH_KEYTYPES; do
+	case "$i" in
+	*@openssh.com*)	t="$i" ;;
+	*)		t=`echo "$i" | sed 's/^ssh-//'` ;;
+	esac
+	if [ -z "$PLAIN_TYPES" ]; then
+		PLAIN_TYPES="$t"
+	else
+		PLAIN_TYPES="$PLAIN_TYPES $t"
+	fi
+done
 
 if echo "$PLAIN_TYPES" | grep '^rsa$' >/dev/null 2>&1 ; then
 	PLAIN_TYPES="$PLAIN_TYPES rsa-sha2-256 rsa-sha2-512"
