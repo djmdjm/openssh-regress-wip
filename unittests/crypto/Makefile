@@ -1,7 +1,11 @@
-#	$OpenBSD: Makefile,v 1.16 2026/02/06 23:39:14 dtucker Exp $
+#	$OpenBSD$
 
-PROG=test_sshkey
-SRCS=tests.c test_sshkey.c test_file.c test_fuzz.c common.c
+PROG=test_crypto
+SRCS=tests.c
+SRCS+=test_mldsa.c
+SRCS+=test_mlkem.c
+SRCS+=test_ed25519.c
+SRCS+=test_mldsa_eddsa.c
 
 # From usr.bin/ssh
 SRCS+=sshbuf-getput-basic.c sshbuf-getput-crypto.c sshbuf-misc.c sshbuf.c
@@ -15,9 +19,6 @@ SRCS+=utf8.c ssherr-libcrypto.c libcrux-mlkem-mldsa.c ssh-mldsa-eddsa.c
 
 SRCS+=digest-openssl.c ed25519-openssl.c
 #SRCS+=digest-libc.c ed25519.c
-
-
-REGRESS_TARGETS=run-regress-${PROG}
 
 run-regress-${PROG}: ${PROG}
 	env ${TEST_ENV} ./${PROG} ${UNITTEST_ARGS} -d ${.CURDIR}/testdata
